@@ -1,0 +1,1 @@
+@for %%g in ("%~dp0get-*.bat") do if not "%%~g"=="%~f0" call "%%~g" %*

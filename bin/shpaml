@@ -1,0 +1,32 @@
+#!/bin/sh
+#|Usage: <command> [OPTIONS]
+#|
+#|Runs python <command>.py OPTIONS.
+#|
+#|  Preferrably uses Python interpreter located in the same path, or above.
+#|
+
+main () {
+    local Name Base
+
+    Name="${0##*/}"
+    Base="${0%/*}"; [ "$Base" = "$0" -o "$Base" = '.' ] && Base="$PWD"; [ "${Base#/}" = "$Base" ] && Base="$PWD/$Base";
+        # Absolute path to directory of this script, unless sourced.
+
+    [ $# = 0 -o "$1" = "-h" -o "$1" = "--help" ] && usage "$0" command="$Name"
+
+    [ -f "$Base/$Name.py" ] && Script="$Base/$Name.py" || ! echo "Python script not found: '$Base/$Name.py'" >&2 || return 1
+    [ -x "$Base/python" ] && Python="$Base/python" || { [ -x "$Base/../python" ] && Python="$Base/../python"; } || Python=python
+
+    echo "=== $Python $Script $@" >&2
+    $Python $Script $@
+    }
+
+usage () { local R S I; S="${1:-$0}"; shift; R=; for I in $@; do R="${R}s/<${I%%=*}>/${I#*=}/;"; done; sed -n "$R;/^#|/s/#|//p;" "$S"; }
+    ## usage script [var=value]
+    ## Extracts documentation from script.
+
+is_sourced () { [ -z "$0" -o "$0" = "${SHELL##*/}" -o "$0" = 'sh' ] && [ $# = 0 ]; }
+    ## Checks if current script is sourced from another script via '.' (command is empty or shell).
+
+is_sourced || ! trap 'exit 10' 1 2 3 13 15 || main "$@" || exit $?

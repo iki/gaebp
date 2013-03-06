@@ -1,0 +1,63 @@
+# Edit this file as you like and merge with $HOME/.hgrc (global) or .hg/hgrc (given repo only) 
+#
+# See http://www.selenic.com/mercurial/hgrc.5.html
+# See http://boredzo.org/configure-hgrc/
+# See http://www.google.com/search?num=100&hl=en&q=mercurial+hgrc
+
+
+[ui]
+# username = Your Name <user@gmail.com>
+
+# Use ssh with unprotected putty private key on Windows (not recommended):
+# # ssh = plink.exe -i "c:/users/UserName/.ssh/putty.ppk" 
+# No configuration is needed with protected private key loaded in pageant (recommended).
+
+[extensions]
+# See http://mercurial.selenic.com/wiki/UsingExtensions
+# Disabled hgext.bookmarks ... built-in since v1.8.
+hgext.color =
+hgext.convert =
+hgext.eol =
+hgext.extdiff =
+hgext.fetch =
+hgext.graphlog =
+hgext.mq =
+hgext.progress =
+hgext.transplant =
+hgext.schemes =
+
+# TortoiseHG has built-in mercurial keyring for storing HTTP/HTTPS/SMTP passwords,
+# even on Windows. Btw, HTTPS is faster than SSH.
+mercurial_keyring =
+
+# Run: git clone https://github.com/schacon/hg-git ~/.hg-ext/hg-git
+hggit = ~/.hg-ext/hg-git/hggit
+
+# Run: hg clone https://bitbucket.org/codekoala/hgext ~/.hg-ext/hgext
+todo  = ~/.hg-ext/hgext/todo.py
+qadd  = ~/.hg-ext/hgext/qadd.py
+mpush = ~/.hg-ext/hgext/mpush.py
+
+[git]
+intree = 1
+# Puts .git in repo root, instead of .hg/git.
+# See https://github.com/schacon/hg-git
+# See http://www.google.com/search?num=100&hl=en&q=hg-git+intree
+
+[diff]
+git = True
+
+[extdiff]
+cmd.sbsdiff  = diff
+opts.sbsdiff = -N -b --side-by-side --width=90
+
+[schemes]
+# See http://mercurial.selenic.com/wiki/SchemesExtension
+# See https://mirrors.kilnhg.com/Repo/Mirrors/Hg/Mercurial/File/hgext/schemes.py
+py = http://hg.python.org/
+bb = https://bitbucket.org/
+bb+ssh = ssh://hg@bitbucket.org/
+gh = git://github.com/
+gh+ssh = git+ssh://git@github.com/
+gcode = https://{1}.googlecode.com/hg/
+kiln = https://{1}.kilnhg.com/Repo/

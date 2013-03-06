@@ -1,0 +1,24 @@
+$color: blue
+
+@mixin body_extend
+  // placeholder
+
+@mixin body($color:$color) 
+  content: Hello Body
+  @if type-of($color) == color
+    color: $color
+  @else
+    color: black
+  @include body_extend
+
+@mixin body_extend
+  background: white
+
+body
+  @include body($color:red)
+
+default-body
+  @include body
+
+#test
+  display: none

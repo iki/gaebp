@@ -1,0 +1,96 @@
+# Edit this file as you like and merge with $HOME/.gitconfig (global) or .git/config (given repo only) 
+
+# See https://help.github.com/articles/set-up-git
+
+# See https://git-scm.com/docs/git-config
+#  or http://www.kernel.org/pub/software/scm/git/docs/git-config.html
+
+# See http://git-scm.com/book/en/Customizing-Git-Git-Configuration
+#  or http://progit.org/book/ch7-1.html
+
+# See http://cheat.errtheblog.com/s/git
+#  or https://help.github.com/git-cheat-sheets
+
+# See https://www.google.com/search?num=100&hl=en&ncr&q=gitconfig
+
+[user]
+	# name =  Your Name
+	# email = user@gmail.com
+
+[credential]
+	# Cache https credentials. Sample:
+	# helper = cache --username user --timeout 36000
+
+	# On Windows, you can install credential winstore for git >= 1.7.10:
+	# https://github.com/downloads/anurse/git-credential-winstore/git-credential-winstore.exe
+	# https://code.google.com/p/msysgit/downloads/list
+	# helper = !git-credential-winstore.exe
+
+[http]
+	# Disable SSL only for projects where it is really needed.
+	sslVerify = true 
+
+[core]
+	# Commit message and rebase editor.
+	# Sample: editor = e 
+	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+
+[alias]
+	st  = status
+	ci  = commit
+	cm  = commit -m
+	br  = branch
+	co  = checkout
+	cb  = checkout -b
+	df  = diff
+	ds  = diff --staged
+	ld  = log -p
+	ls  = ls-files
+	lx  = ls-files --exclude-standard
+	lg  = log --graph --decorate --pretty=oneline --abbrev-commit
+	lga = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	ll  = log --graph --decorate --pretty=oneline --abbrev-commit --name-status
+	lla = log --graph --decorate --pretty=oneline --abbrev-commit --name-status --all
+	cp  = cherry-pick
+	cn  = cherry-pick -n
+	cpn = cherry-pick -n
+	cpo = cherry-pick --strategy=recursive -Xours -n
+	cpt = cherry-pick --strategy=recursive -Xtheirs -n
+	cno = cherry-pick --strategy=recursive -Xours -n
+	cnt = cherry-pick --strategy=recursive -Xtheirs -n
+	mg  = merge
+	mt  = mergetool
+	mn  = merge --no-commit
+	mgn = merge --no-commit
+	mgo = merge --strategy=recursive -Xours
+ 	mgt = merge --strategy=recursive -Xtheirs
+	mno = merge --strategy=recursive -Xours --no-commit
+ 	mnt = merge --strategy=recursive -Xtheirs --no-commit
+
+[color]
+	ui = auto
+
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+
+[merge]
+	tool = p4merge
+
+[mergetool "p4merge"]
+	cmd = p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+	# http://www.perforce.com/product/components/perforce_visual_merge_and_diff_tools
+	# http://www.perforce.com/downloads/complete_list

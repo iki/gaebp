@@ -1,0 +1,134 @@
+{% import "config-paths.html" as paths -%}
+{% import "config-versions.html" as versions -%}
+<!doctype html>
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="{{lang}}"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="{{lang}}"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="{{lang}}"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{lang}}"> <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+
+
+  {% if page_title -%}
+    <title>{{page_title}}</title>
+  {% endif -%}
+  {% if page_description -%}
+  <meta name="description" content="{{page_description}}">
+  {% endif -%}
+  {% if page_keywords -%}
+  <meta name="keywords" content="{{page_keywords}}">
+  {% endif -%}
+  {% if page_author -%}
+  <meta name="author" content="{{page_author}}">
+  {% endif -%}
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="x-rim-auto-match" content="none">
+
+
+  <!--[if lt IE 9]>
+    <script src="{{paths.jslib}}html5shiv-{{versions.html5shiv}}.min.js"></script>
+    <!--[if !IE 7]>
+      <style type="text/css">#wrap {display:table;height:100%}</style>
+    <![endif]-->
+  <![endif]-->
+
+  <link href="{{paths.stylesheet}}" rel="stylesheet" type="text/css">
+
+  {% if h1font -%}
+  <link href="//fonts.googleapis.com/css?family={{urlquote(h1font)}}{{h1spec}}&text={{urlquote(h1text.replace('_', ' '))}}" rel="stylesheet" type="text/css">
+  <style type="text/css">h1 {font-family: '{{h1font}}', {{h1fonts}}}</style>
+  {% endif -%}
+  {% if h2font -%}
+  <link href="//fonts.googleapis.com/css?family={{urlquote(h2font)}}{{h2spec}}&text={{urlquote(h2text.replace('_', ' '))}}" rel="stylesheet" type="text/css">
+  <style type="text/css">h2 {font-family: '{{h2font}}', {{h2fonts}}}</style>
+  {% endif -%}
+
+
+
+
+
+  {% block head_append %}{% endblock -%}
+</head>
+
+{% block body_tag -%}
+<body>
+  {% endblock -%}
+
+
+  <div id="page-wrap">
+
+
+    {% block header %}{% endblock -%}
+
+
+    {% block content %}{% endblock -%}
+
+
+
+
+  </div>
+
+
+  <div id="footer">
+    {% block footer %}{% endblock -%}
+  </div>
+
+  {% block libs -%}
+
+  <script>
+    document.write('<script src={{paths.jslib}}'
+    + ('__proto__' in {} ? 'zepto-{{versions.zepto}}' : 'jquery-{{versions.jquery}}')
+    + '{{versions.minified}}.js><\/script>')
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="{{paths.jslib}}bootstrap-{{versions.bootstrap}}{{versions.minified}}.js"></script>
+  {% endblock -%}
+
+  {% block javascript -%}
+
+  {% endblock -%}
+
+  {% block analytics -%}
+  {% if analytics_id -%}
+
+  <script>
+    var _gaq=[['_setAccount','{{analytics_id}}'],['_trackPageview'],['_trackPageLoadTime']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+  </script>
+  {% endif -%}
+  {% endblock -%}
+
+  {% block chrome_frame -%}
+
+  <!--[if lt IE 8 ]>
+    <script defer src="//ajax.googleapis.com/ajax/libs/chrome-frame/{{versions.cfinstall}}/CFInstall.min.js"></script>
+    <script defer>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <![endif]-->
+  {% endblock -%}
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+// Sticky footer ~ http://www.cssstickyfooter.com/using-sticky-footer-code.html
+
+@import app-footer
+
+// The html and body elements cannot have any padding or margin.
+html, body
+  height: 100%
+
+// Wrapper for page content to push down footer.
+#page-wrap
+  min-height: 100%
+
+#page-wrap .container
+  overflow: auto
+  padding-bottom: $footerSpace+$footerHeight
+
+// Set the fixed height of the footer here.
+#footer
+  height: $footerHeight
+  margin-top: -$footerHeight
+  position: relative
+  clear: both
+
+// Opera fix
+body:before
+  content: ""
+  height: 100%
+  width: 0
+  float: left
+  margin-top: -32767px

@@ -1,0 +1,89 @@
+#!/bin/sh
+#
+#|Usage: $Command [OPTIONS]
+#|
+#|Runs bootstrap:
+#|
+#|  python$PythonVersion $Script $Options [OPTIONS]
+#|
+#|  On Debian based Linux, the required python package is automatically
+#|  installed, if needed and available in system apt repositories.
+#|
+#|  On Ubuntu 10.04 Lucid and newer, the PPA repository fkrull/deadsnakes
+#|  is used to install python2.5 package, if Python 2.5 is requested.
+#|
+#|Optionally runs builder:
+#|
+#|  $Builder $BuildOptions
+#|
+#|Options:
+#|
+#|  -h, --help     Show this help message and exit.
+#|      --version  Show version string and exit.
+#|      --quiet    Do not output info messages to stderr.
+#|      --debug    Output debug messages to stderr.
+#|      --dry-run  Preview only, do not actually run anything.
+#|      --log FILE
+#|                 Log command output and all messages to FILE.
+#|      --conf FILE
+#|                 Load configuration FILE. If base name is specified, then it's
+#|                 looked up and loaded from any of the following directories:
+#|                   * home: '%Home%'
+#|                   * bin:  '%Bin%' 
+#|                   * base: '%Basedir%'
+#|                 Files matching base name and a dot prefix will be loaded too,
+#|                 after the exactly matching ones. The last settings gets used.
+#|                 Defaults to '$ConfigFile'.
+#|
+#|Configuration options:
+#|
+#|  Verbose=none/error/info*/debug
+#|    Output no/error/info/debug messages to stderr.
+#|  LogFile=FILE
+#|    Log command output and all messages to FILE.
+#|  DryRun=true/false*
+#|    Preview only, do not actually run anything.
+#|
+#|  Workdir=DIRECTORY
+#|    Run in DIRECORY. Defaults to '$Basedir'.
+#|
+#|  Script=SCRIPT
+#|    Run bootstrap SCRIPT. Defaults to '$Bin/$Name.py'
+#|  Options=OPTIONS
+#|    Run bootstrap with additional OPTIONS.
+#|
+#|  PythonVersion=VERSION
+#|    Use Python VERSION. Defaults to 2.7.
+#|  PythonPath=DIR
+#|    Use Python installed at DIR\python.exe.
+#|
+#|  Builder=EXECUTABLE
+#|    Use builder EXECUTABLE. Defaults to '$Bin/buildout'
+#|  BuildOptions=OPTIONS
+#|    Run builder with additional OPTIONS.
+#|  AutoBuild=true/false*
+#|    Run builder after bootstrap automatically.
+#|
+#|  Environment %%variables%% are expanded. 
+#|
+#|  Different settings for more than one platform can be specified in single
+#|  configuration file by appending .platform to variable names, e.g. '.Windows'.
+#|
+#|  Configuration options can also be set in environment with 'Bootstrap' prefix.
+#|
+#|TODO: Reimplement functionality equal to bootstrap.bat using sufi library.
+#|      See http://j.mp/sufi-lib.
+#|
+#@Version: 0.1
+
+
+Command="${0##*/}"; Name="${Command%%.*}"
+    # This script file name without path and extensions.
+Bin="${0%/*}"; [ "$Bin" = "$0" -o "$Bin" = '.' ] && Bin="$PWD"; [ "${Bin#/}" = "$Bin" ] && Bin="$PWD/$Bin";
+    # Absolute path to directory of this script, unless sourced.
+
+echo "[`date '+%Y-%m-%d %H:%M:%S'` $$ $USER $PWD] python2.7 bin/bootstrap.py --distribute $@" >> .bootstrap.log
+
+cd "$Bin/.." || exit $?
+
+python2.7 bin/bootstrap.py --distribute $@ || exit $?
