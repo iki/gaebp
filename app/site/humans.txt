@@ -1,0 +1,37 @@
+# The humans responsible & technology colophon
+# http://humanstxt.org
+
+
+# TEAM
+
+    iki ~ https://github.com/iki
+
+
+# THANKS
+
+    Mother Earth and all our ancestors.
+
+
+# TECHNOLOGY COLOPHON
+
+    Python            ~ http://python.org
+    Google App Engine ~ http://cloud.google.com
+    Jinja2            ~ http://jinja.pocoo.org
+    Webapp2           ~ http://webapp-improved.appspot.com
+    PyYAML            ~ http://pyyaml.org, http://yaml.org
+ 
+    CoffeeScript      ~ http://coffeescript.org
+    AngularJS         ~ http://angularjs.org
+
+    HTML5 Boilerplate ~ http://html5boilerplate.com
+    HTML5 Shiv        ~ http://github.com/aFarkas/html5shiv
+    Twitter Bootstrap ~ http://twitter.github.com/bootstrap
+    Sass Bootstrap    ~ http://github.com/jlong/sass-twitter-bootstrap
+    Sass              ~ http://sass-lang.com, http://thesassway.com
+
+    Google Web Fonts  ~ http://www.google.com/webfonts
+    Font Awesome      ~ http://fortawesome.github.com/Font-Awesome
+
+    Git               ~ http://git-scm.com
+    Github            ~ http://github.com
+    Watchdog          ~ http://github.com/sebastien/watchdog

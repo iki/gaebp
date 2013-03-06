@@ -1,0 +1,55 @@
+{% extends "base-page.html" -%}
+{% set page_title = about.subj -%}
+{% set page_author = about.name -%}
+{% set page_keywords = keywords -%}
+{% set page_description = abstract -%}
+
+{% set h1text = about.title -%}
+{% set h2text = about.service -%}
+
+{% set h1font = "Ubuntu" -%}
+{% set h2font = "" -%}
+
+{% set h1spec = ":bold" -%}
+{% set h2spce = "" -%}
+
+{% set h1fonts = "Verdana, sans-serif" -%}
+{% set h2fonts = "Verdana, sans-serif" -%}
+
+{% block header -%}
+{% endblock -%}
+
+{% block content -%}
+  <div class="container">
+    <div id="page-header">
+      <div class="row">
+        <div class="span12">
+           <h1>{{h1text | replace('_', '&nbsp;') | safe }}</h1>
+           <h2>{{h2text | replace('_', '&nbsp;') | safe }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock -%}
+
+{% block footer -%}
+  <div class="container">
+    <a target="blank" title="Fork me at Github" href="https://github.com/iki/gaebp">
+      <i class="icon-github"></i>
+      <span class="hidden-phone">
+        Github
+      </span>
+    </a>
+
+
+
+    <a target="blank" title="{{label.powered_by}} Google Cloud Platform" href="http://cloud.google.com" class="indent">
+      <i class="icon-cloud"></i>
+      <span class="hidden-phone">
+        Google Cloud
+      </span>
+    </a>
+  </div>
+
+  {% endblock -%}

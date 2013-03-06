@@ -1,0 +1,14 @@
+﻿about:
+  subj:     Google App Engine Boilerplate
+  name:     iki
+  title:    It_worked.
+  service:  Now edit the templates in app/site directory.
+
+abstract: Google App Engine Boilerplate Demo
+keywords: opensource python google cloud appengine gae webapp2 jinja2 html5 sass bootstrap boileplate
+
+label:
+  and:        and
+  terms:      Terms
+  privacy:    Privacy
+  powered_by: Powered by

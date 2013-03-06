@@ -1,0 +1,114 @@
+# Ignores the specified file/directory regexp/glob patterns
+# from being tracked in a mercurial repository.
+#
+# An untracked file is ignored if its path relative to the repository root directory,
+# or any prefix path of that path, is matched.
+# Files are only ignored when being added or updated.
+# Untrack already tracked files with `hg rm -Af filename`.
+# Force adding or updating ignored file with `hg add -f filename`.
+#
+# Blank lines or lines starting with # are ignored.
+# You can use 'syntax: regexp' to match following patterns as python/perl regexps (default).
+# You can use 'syntax: glob' to match following patterns as shell globs.
+# You can end patterns with a forward slash (/) to match a directory explicitly.
+#
+# See http://www.selenic.com/mercurial/hgignore.5.html
+# See http://www.google.com/search?num=100&hl=en&q=hgignore
+# See http://hgignore.com/
+
+syntax: glob
+
+# Git repository info:
+.git/
+
+# Executable scripts (no extension, or python version at the end) in bin: 
+bin/*
+!bin/*.*
+bin/*-?.?
+
+# Compiled source:
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.py[oc]
+*-script.py
+
+# Packages:
+#  - it's better to unpack these files and commit the raw source
+#    git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Databases:
+*.sql
+*.sqlite
+index.yaml
+
+# Logs:
+*.log.*
+*.log
+pip-log.txt
+bulkloader-log-*
+bulkloader-progress-*
+
+# OS generated files:
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# IDE/editor/merge/backup files
+*~
+*.bak
+.idea
+*.swp
+*.orig
+
+# Log files:
+*.log
+
+# Distribute/setuptools bootstrap:
+distribute_setup.*
+ez_setup.*
+
+# Build and dist directories:
+.sass-cache/
+=build/
+build/
+dist/
+dist.zip
+*.egg-info
+
+# Buildout files and directories: 
+src/
+var/
+eggs/
+.installed.cfg
+.mr.developer.cfg
+
+# Additional tools:
+bin/*/
+
+# Temporary directories:
+/.tmp/
+/tmp/
+
+# Auth files:
+oauth.txt
+/apps.yaml
+
+# User ignored files:
+\!*

@@ -1,0 +1,55 @@
+{% extends "base-page.html" -%}
+{% set page_title = about.subj -%}
+{% set page_author = about.name -%}
+{% set page_keywords = keywords -%}
+{% set page_description = abstract -%}
+
+{% set h1text = about.title -%}
+{% set h2text = about.service -%}
+
+{% set h1font = "Ubuntu" -%}
+{% set h2font = "" -%}
+
+{% set h1spec = ":bold" -%}
+{% set h2spce = "" -%}
+
+{% set h1fonts = "Verdana, sans-serif" -%}
+{% set h2fonts = "Verdana, sans-serif" -%}
+
+{% block header -%}
+{% endblock -%}
+
+{% block content -%}
+  .container
+    #page-header
+      .row
+        .span12
+           h1 | {{h1text | replace('_', '&nbsp;') | safe }}
+           h2 | {{h2text | replace('_', '&nbsp;') | safe }}
+
+  {% endblock -%}
+
+{% block footer -%}
+  .container
+    a target=blank title="Fork me at Github" href=https://github.com/iki/gaebp
+      i.icon-github |
+      span.hidden-phone
+        Github
+
+    # a#terms.indent title={{label.terms}} href=#/terms
+      i.icon-file-alt |
+      span.hidden-phone
+        {{label.terms}}
+
+    # a#privacy.indent title={{label.privacy}} href=#/privacy
+      i.icon-user |
+      span.hidden-phone
+        {{label.privacy}}
+
+    a.indent target=blank title="{{label.powered_by}} Google Cloud Platform" href=http://cloud.google.com 
+      i.icon-cloud |
+      span.hidden-phone
+        Google Cloud
+
+  {% endblock -%}
+  

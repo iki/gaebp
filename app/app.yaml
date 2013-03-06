@@ -1,0 +1,267 @@
+application: gaebp-demo
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+##| See http://code.google.com/appengine/docs/python/config/appconfig.html
+
+env_variables:
+  TMP: '../var/tmp'
+  ##| Set TMP for GAE SDK SQLite datastore on Windows and Python 2.7 (with --use_sqlite before 1.7.5).
+  ##| See https://code.google.com/p/googleappengine/issues/detail?id=7717#c13
+
+default_expiration: '30d'
+  ##| Long expiration on static content and versioning (e.g. style.1.css) is effective.
+  ##| Take care however!
+
+  ##| Override for non-versioned content like /robots.txt, /favicon.ico, apple-touch-icon.png.
+  ##| (at least for development).
+
+libraries:
+  ##| See https://developers.google.com/appengine/docs/python/python27/using27#Configuring_Libraries
+  ##| See https://developers.google.com/appengine/docs/python/tools/libraries27
+  - name: webapp2
+    version: '2.5.1'
+  - name: jinja2
+    version: '2.6'
+  # - name: PIL
+  #   version: '1.1.7'
+
+derived_file_type:
+  - python_precompiled
+
+inbound_services:
+  ##| See http://code.google.com/appengine/docs/python/config/appconfig.html#Inbound_Services
+  # - warmup
+    ##| See http://code.google.com/appengine/docs/python/config/appconfig.html#Warmup_Requests
+
+builtins:
+  ##| See http://code.google.com/appengine/docs/python/config/appconfig.html#Builtin_Handlers
+  ##| See http://googleappengine.blogspot.com/2010/10/new-app-engine-sdk-138-includes-new.html
+  # - admin_redirect: on  # /_ah/admin # redirects local dev console to admin console dashboard
+  - appstats: on        # /_ah/stats # sdk>=1.3.8
+    ##| See https://developers.google.com/appengine/docs/python/tools/appstats#ConsolePath
+  - deferred: on        # /_ah/queue/deferred # sdk>=1.4.2
+    ##| See http://code.google.com/appengine/articles/deferred.html
+  - remote_api: on      # /_ah/remote_api # sdk>=1.3.8
+  # - datastore_admin: on # /_ah/datastore_admin # sdk>=1.3.8 # deprecated, use console
+    ##| See https://developers.google.com/appengine/docs/adminconsole/datastoreadmin
+
+admin_console:
+  ##| See http://code.google.com/appengine/docs/python/config/appconfig.html#Administration_Console_Custom_Pages
+  pages:
+    - name: Appstats
+      url: /_ah/stats
+
+# skip_files:
+   ##| http://code.google.com/appengine/docs/python/config/appconfig.html#Skipping_Files
+skip_files: |
+  ^(.*/)?(
+  (app\.yaml)|
+  (app\.yml)|
+  (index\.yaml)|
+  (index\.yml)|
+  (#.*#)|
+  (.*~)|
+  (.*\.py[co])|
+  (.*/RCS/.*)|
+  (\..*)|
+  (.*\.less)|
+  (.*\.sass)|
+  (.*\.shpaml)|
+  (.*\.coffee)|
+  (!.*)|
+  )$
+
+
+error_handlers:
+  ##| See http://code.google.com/appengine/docs/python/config/appconfig.html#Custom_Error_Responses
+  - file: site/500.html
+
+  - error_code: over_quota
+    file: site/503.html
+
+  - error_code: dos_api_denial
+    file: site/429.html
+
+  - error_code: timeout
+    file: site/504.html
+
+handlers:
+
+  ##| Images
+  ##| ------
+  - url: /img/(.*\.png)
+    static_files: site/img/\1
+    upload: site/img/(.*\.png)
+    mime_type: image/png
+
+  - url: /img/(.*\.jpe?g)
+    static_files: site/img/\1
+    upload: site/img/(.*\.jpe?g)
+    mime_type: image/jpeg
+
+  - url: /img/(.*\.webp)
+    static_files: site/img/\1
+    upload: site/img/(.*\.webp)
+    mime_type: image/webp
+
+  - url: /img/(.*)
+    static_files: site/img/\1
+    upload: site/img/(.*)
+
+  ##| Styles
+  ##| ------
+  - url: /css/(.*\.css)
+    static_files: site/css/\1
+    upload: site/css/(.*\.css)
+
+  ##| Javascript, flash, extensions
+  ##| -----------------------------
+  - url: /js/(.*)
+    static_files: site/js/\1
+    upload: site/js/(.*)
+
+  # - url: /js/(.*\.htc)
+  #  static_files: site/js/\1
+  #  upload: site/js/(.*\.htc)
+  #  mime_type: text/x-component
+
+  # - url: /js/(.*\.crx)
+  #  static_files: site/js/\1
+  #  upload: site/js/(.*\.crx)
+  #  mime_type: application/x-chrome-extension
+
+  # - url: /js/(.*\.xpi)
+  #  mime_type: application/x-xpinstall
+  #  static_files: site/js/\1
+  #  upload: site/js/(.*\.xpi)
+
+  # - url: /js/(.*\.swf)
+  #  static_files: site/js/\1
+  #  upload: site/js/(.*\.swf)
+  #  mime_type: application/x-shockwave-flash
+
+  # - url: /js/(.*\.unity3d)
+  #  static_files: site/js/\1
+  #  upload: site/js/(.*\.unity3d)
+  #  mime_type: application/vnd.unity
+
+  ##| Fonts
+  ##| -----
+  - url: /font/(.*\.woff)
+    static_files: site/font/\1
+    upload: site/font/(.*.\woff)
+    mime_type: application/x-font-woff
+    # https://github.com/h5bp/html5-boilerplate/issues/273
+    # http://code.google.com/p/chromium/issues/detail?id=70283
+    # http://stackoverflow.com/questions/3594823/mime-type-for-woff-fonts
+    http_headers:
+      Access-Control-Allow-Origin: '*'
+
+  - url: /font/(.*\.svg|.*\.svgz)
+    static_files: site/font/\1
+    upload: site/font/(.*.\svg|.*\.svgz)
+    mime_type: image/svg+xml
+    http_headers:
+      Access-Control-Allow-Origin: '*'
+
+  - url: /font/(.*\.ttf)
+    static_files: site/font/\1
+    upload: site/font/(.*.\ttf)
+    mime_type: font/ttf
+    http_headers:
+      Access-Control-Allow-Origin: '*'
+
+  - url: /font/(.*\.otf)
+    static_files: site/font/\1
+    upload: site/font/(.*.\otf)
+    mime_type: font/otf
+    http_headers:
+      Access-Control-Allow-Origin: '*'
+
+  - url: /font/(.*\.eot)
+    static_files: site/font/\1
+    upload: site/font/(.*.\eot)
+    mime_type: application/vnd.ms-fontobject
+    http_headers:
+      Access-Control-Allow-Origin: '*'
+
+  ##| Cache manifest
+  ##| --------------
+  - url: /(.*\.(appcache|manifest))
+    static_files: site/\1
+    upload: site/(.*\.(appcache|manifest))
+    mime_type: text/cache-manifest
+    # expiration: 7d
+
+  ##| Site icons
+  ##| ----------
+  - url: /favicon\.ico
+    static_files: site/favicon.ico
+    upload: site/favicon.ico
+    mime_type: image/x-icon
+    expiration: 7d
+    ##| Size should be 16x16 or 32x32 or 48x48.
+    ##| Do not use mimetype image/vnd.microsoft.icon.
+    ##| See https://secure.wikimedia.org/wikipedia/en/wiki/Favicon
+    ##| See http://iconhandbook.co.uk/reference/examples/favicons/
+
+  - url: /apple-touch-icon.*\.png
+    static_files: site/\1
+    upload: site/apple-touch-icon.*\.png
+    expiration: 7d
+    ##| See http://mathiasbynens.be/notes/touch-icons
+    ##| See http://stackoverflow.com/questions/2997437/what-size-should-apple-touch-icon-png-be-for-ipad-and-iphone-4
+    ##| See http://developer.apple.com/library/ios/documentation/userexperience/conceptual/mobilehig/IconsImages/IconsImages.html
+
+  ##| Robots.txt + Crossdomain.xml
+  ##| ----------------------------
+  - url: /(robots|humans)\.txt
+    static_files: site/\1.txt
+    upload: site/(robots|humans)\.txt
+    expiration: 12h
+
+  # - url: /crossdomain.xml
+  #  static_files: site/crossdomain.xml
+  #  upload: site/crossdomain.xml
+  #  expiration: 12h
+
+  ##| Static files
+  ##| ------------
+
+  #- url: /static/(.*)
+  #  static_files: site/static/\1
+  #  upload: site/static/(.*)
+
+  ##| Admin API
+  ##| ---------
+  - url: /api/app/.*
+    script: app.app
+    secure: always
+    login: admin
+    auth_fail_action: unauthorized
+
+  ##| Open API
+  ##| --------
+  - url: /api/open/.*
+    script: app.app
+    secure: always
+
+  ##| API
+  ##| ---
+  - url: /api/.*
+    script: app.app
+    secure: always
+    login: required
+    auth_fail_action: unauthorized
+
+  ##| Application
+  ##| -----------
+  - url: /.*
+    script: app.app
+    secure: always
+    login: required
+    auth_fail_action: redirect
+    ##| See https://developers.google.com/appengine/docs/python/config/appconfig#Requiring_Login_or_Administrator_Status
